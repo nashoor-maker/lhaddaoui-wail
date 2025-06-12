@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcul Mental</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #c8c9fb;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .container {
+      background: rgb(50, 226, 246);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #ec5605;
+    }
+
+    .question {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      width: 100px;
+      font-size: 18px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      background-color: #4a92e4;
+      color: rgb(255, 255, 255);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calcul Mental</h1>
+    <div class="question" id="question">3 + 4 = ?</div>
+    <input type="number" id="answer" placeholder="Réponse" />
+    <br>
+    <button onclick="checkAnswer()">Valider</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    let num1, num2, operator, correctAnswer;
+
+    function generateQuestion() {
+      num1 = Math.floor(Math.random() * 10);
+      num2 = Math.floor(Math.random() * 10);
+      const operators = ['+', '-', '*'];
+      operator = operators[Math.floor(Math.random() * operators.length)];
+
+      switch (operator) {
+        case '+':
+          correctAnswer = num1 + num2;
+          break;
+        case '-':
+          correctAnswer = num1 - num2;
+          break;
+        case '*':
+          correctAnswer = num1 * num2;
+          break;
+      }
+
+      document.getElementById('question').textContent = `${num1} ${operator} ${num2} = ?`;
+      document.getElementById('answer').value = '';
+      document.getElementById('result').textContent = '';
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseInt(document.getElementById('answer').value);
+      const resultElement = document.getElementById('result');
+      if (userAnswer === correctAnswer) {
+        resultElement.textContent = "✅ Correct !";
+        resultElement.style.color = "green";
+      } else {
+        resultElement.textContent = `❌ Incorrect. La bonne réponse était ${correctAnswer}`;
+        resultElement.style.color = "red";
+      }
+      setTimeout(generateQuestion, 2000); 
+    }
+
+    window.onload = generateQuestion;
+  </script>
+</body>
+</html>
